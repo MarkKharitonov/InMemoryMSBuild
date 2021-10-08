@@ -5,4 +5,23 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <VSINSTALLDIR Condition="'$(VSINSTALLDIR)' == '' AND '$(VSAPPIDDIR)' != ''">$(VSAPPIDDIR)\..\..\</VSINSTALLDIR>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Build">
+      <HintPath>$(VSINSTALLDIR)MSBuild\Current\Bin\Microsoft.Build.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Framework">
+      <HintPath>$(VSINSTALLDIR)MSBuild\Current\Bin\Microsoft.Build.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Utilities.Core">
+      <HintPath>$(VSINSTALLDIR)MSBuild\Current\Bin\Microsoft.Build.Utilities.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>
