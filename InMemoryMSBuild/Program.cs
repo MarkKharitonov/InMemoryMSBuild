@@ -1,4 +1,9 @@
-﻿using System;
+﻿using Microsoft.Build.Evaluation;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 namespace InMemoryMSBuild
 {
@@ -6,7 +11,13 @@ namespace InMemoryMSBuild
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var sut = Path.GetFullPath(Path.Combine(Assembly.GetExecutingAssembly().Location, @"..\..\..\..\..\LegacyDotNetSUT\LegacyDotNetSUT.csproj"));
+            Debug.Assert(File.Exists(sut));
+            var project = new Project(sut);
+            foreach (var filePath in project.GetItems("Compile").Select(o => o.GetMetadataValue("FullPath")))
+            {
+                Console.WriteLine(filePath);
+            }
         }
     }
 }
